@@ -1,0 +1,54 @@
+<html>
+<html>
+<head>
+  <script type="text/javascript" src="composite_pattern.js"></script>
+  <script type="text/javascript">
+    window.onload=function(){
+      var $ = function(id){return document.getElementById(id);}
+      //init tree
+      var tree = new Directory("root");
+      var sub_dir1 = new Directory("src");
+      var file_1 = new Item("Readme.txt");
+      var file_2 = new Item("build.xml");
+      var sub_dir2 = new Directory("libs");
+      var sub_dir3 = new Directory("bin");
+      tree.add(sub_dir1);
+      tree.add(sub_dir2);
+      tree.add(sub_dir3);
+      tree.add(file_1);
+      tree.add(file_2);
+
+      sub_dir1.add(new Item("Main.java"));
+      sub_dir1.add(new Item("Util.java"));
+      sub_dir1.add(new Item("Log.java"));
+
+      sub_dir2.add(new Item("library.jar"));
+      sub_sub_dir1 = new Directory("ext");
+      sub_sub_dir1.add(new Item("support.jar"));
+      sub_dir2.add(sub_sub_dir1);
+
+      sub_dir3.add(new Item("Main.class"));
+
+      //renderer
+      function renderTree(tree, padding){
+        var div = document.createElement("div");
+        div.style.paddingLeft=padding+"px";
+        div.innerHTML = tree.getName();
+        $("area").appendChild(div);
+        if(!tree.isItem()){
+          var children = tree.getChildren();
+          for(var i = children.length - 1; i >= 0; i--){
+            renderTree(children[i], padding+20);
+          }
+        }
+      }
+      renderTree(tree, 0);
+    }
+  </script>
+</head>
+<body>
+<h3>Composite Pattern</h3>
+<div id="area">
+</div>
+</body>
+</html>
