@@ -1,0 +1,37 @@
+<html>
+<head>
+  <script type="text/javascript" src="bridge_pattern.js"></script>
+  <script type="text/javascript">
+    window.onload = function(){
+      var flow1 = new FlowPattern();
+      for(var i = 0; i < 10; i++){
+        flow1.add(new Circle(10));
+      }
+      flow1.next(document.getElementById("area1"));
+      var flow2 = new FlowPattern();
+      for(var i = 0; i < 10; i++){
+        flow2.add(new Rect(20, 20));
+      }
+      flow2.next(document.getElementById("area2"));
+
+      var random1 = new RandomPattern();
+      for(var i = 0; i < 10; i++){
+        random1.add(new Circle(10));
+      }
+      random1.next(document.getElementById("area3"));
+      var random2 = new RandomPattern();
+      for(var i = 0; i < 10; i++){
+        random2.add(new Rect(20, 20));
+      }
+      random2.next(document.getElementById("area4"));
+    }
+  </script>
+</head>
+<h1>Bridge Pattern</h1>
+<body>
+  <canvas id="area1" height="200px" width="200px"></canvas>
+  <canvas id="area2" height="200px" width="200px"></canvas>
+  <canvas id="area3" height="200px" width="200px"></canvas>
+  <canvas id="area4" height="200px" width="200px"></canvas>
+</body>
+</html>

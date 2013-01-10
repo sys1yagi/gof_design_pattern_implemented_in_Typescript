@@ -1,0 +1,16 @@
+<html>
+<head>
+	<script type="text/javascript" src="dp.js"></script>
+	<script type="text/javascript">
+		var logger;
+		window.onload = function(){
+			logger = LogAdapterFactory.createLogger(LOGGER_TYPE.DISPLAY);
+			logger.log("logが出るよー");
+		}
+	</script>
+</head>
+<body>
+	<input type="text" value="ログを書くべし" id="log" />
+	<input type="button" value="出力" onclick="logger.log(document.getElementById('log').value)" />
+</body>
+</html>
