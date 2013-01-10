@@ -16,7 +16,6 @@ class Circle implements Shape{
     context.fill();
   }
 }
-
 class Rect implements Shape{
   color:string;
   constructor(private width:number, private height:number){
