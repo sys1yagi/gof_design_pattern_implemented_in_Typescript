@@ -4,13 +4,29 @@
   <script type="text/javascript" src="decorator_pattern.js"></script>
   <script type="text/javascript">
     window.onload=function(){
-      
+    	var $ = function(id){return document.getElementById(id);}
+		var canvas = $("area");
+		var context = canvas.getContext("2d");
+		var color = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+		var world = new World(canvas.width, canvas.height);
+		var linear = new LinearAnimation(5, true);
+		var rect = new Rect(100, 100, 30, 30);
+		function move(){
+			context.fillStyle="#cccccc";
+			context.fillRect(0, 0, world.width, world.height);
+
+			linear.move(world, rect);
+			context.fillStyle=color;
+			context.fillRect(rect.x, rect.y, rect.w, rect.h);
+			setTimeout(move, 30);
+		}
+		move();
     }
   </script>
 </head>
 <body>
 <h3>Decorator Pattern</h3>
-<div id="area">
-</div>
+<canvas id="area" width="200px" height="200px">
+</canvas>
 </body>
 </html>

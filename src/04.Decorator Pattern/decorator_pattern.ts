@@ -1,38 +1,83 @@
 //Decorator Pattern
 
 /** Conponent */
-interface Shape{
-  draw(context:CanvasRenderingContext2D, x:number, y:number): void;
-  getImage(): ImageData;
+interface Animation{
+  move(world:World, rect:Rect):void;
 }
-class Circle implements Shape{
-  color:string;
-  
-  constructor(private r:number){
-    this.color = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+class LinearAnimation implements Animation{
+  constructor(public speed:number, public isHorizontal:bool=true){}
+  moveHorizontal(world:World, rect:Rect):void{
+
+    var offset = 0;
+    if(this.speed > 0){
+      offset = rect.w;
+    }
+
+    if(world.width <= rect.x+this.speed+offset){
+      rect.x = world.width-offset;
+      this.speed=-this.speed;
+    }
+    else if(0 >= rect.x+this.speed+offset){
+      rect.x = 0;
+      this.speed=-this.speed; 
+    }
+    else{
+      rect.x += this.speed;
+    }
   }
-  draw(context:CanvasRenderingContext2D, x:number, y:number): void{
-    context.fillStyle = this.color;
-    context.beginPath();
-    context.arc(x, y, this.r, 0, Math.PI*2, false);
-    context.fill();
+  moveVertical(world:World, rect:Rect):void{
+
   }
-  getImage(): ImageData{
-    return null;
+  move(world:World, rect:Rect):void {
+    if(this.isHorizontal){
+      this.moveHorizontal(world, rect);
+    }
+    else{
+      this.moveVertical(world, rect);
+    }
   }
 }
-class Rect implements Shape{
-  color:string;
-  constructor(private width:number, private height:number){
-    this.color = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+class CircleAnimation implements Animation{
+  constructor(public speed:number){}
+  move(world:World, rect:Rect):void {
+
   }
-  draw(context:CanvasRenderingContext2D, x:number, y:number): void{
-    context.fillStyle = this.color;
-    context.fillRect(x, y, this.width, this.height);
+}
+/** Decorator */
+class Decorator implements Animation{
+  constructor(public animation:Animation){}
+  move(world:World, rect:Rect):void {
+    throw new Error("not yet implemented.");
+  } 
+}
+class Wave extends Decorator{
+  constructor(public animation:Animation){
+    super(animation);
   }
-  getImage(): ImageData{
-    return null;
-  }
+  move(world:World, rect:Rect):void {
+    //throw new Error("not yet implemented.");
+  }  
 }
 
-/** Decorator */
+
+//data
+class World{
+  public width:number;
+  public height:number;
+  constructor(width:number=0, height:number=0){
+    this.width = width;
+    this.height = height;
+  }  
+}
+class Rect{
+  public x:number;
+  public y:number;
+  public w:number;
+  public h:number;
+  constructor(x:number=0, y:number=0, w:number=10, h:number=10){
+    this.x = x;
+    this.y = y;
+    this.h = h;
+    this.w = w;
+  }
+}
