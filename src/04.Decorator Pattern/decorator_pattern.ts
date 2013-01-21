@@ -51,12 +51,29 @@ class Decorator implements Animation{
   } 
 }
 class Wave extends Decorator{
+  private counter:number;
+  public a:number;
   constructor(public animation:Animation){
     super(animation);
   }
+
+  wave(world:World, rect:Rect, diff:Rect){
+    
+  }
+
   move(world:World, rect:Rect):void {
-    //throw new Error("not yet implemented.");
-  }  
+    var diff:Rect = new Rect();
+    diff.x = rect.x;
+    diff.y = rect.y;
+    diff.width = rect.width;
+    diff.height = rect.height;
+    this.animation.move(world, rect);
+    diff.x -= rect.x;
+    diff.y -= rect.y;
+    diff.width -= rect.width;
+    diff.height -= rect.height;
+    this.wave(world, rect, diff);
+  }
 }
 
 

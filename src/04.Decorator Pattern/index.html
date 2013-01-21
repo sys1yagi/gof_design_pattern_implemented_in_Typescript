@@ -9,7 +9,7 @@
 		var context = canvas.getContext("2d");
 		var color = Math.floor(Math.random() * 0xFFFFFF).toString(16);
 		var world = new World(canvas.width, canvas.height);
-		var linear = new LinearAnimation(5, true);
+		var linear = new Wave(new LinearAnimation(5, true));
 		var rect = new Rect(100, 100, 30, 30);
 		function move(){
 			context.fillStyle="#cccccc";
