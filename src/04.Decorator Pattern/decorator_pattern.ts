@@ -58,24 +58,28 @@ class Wave extends Decorator{
   }
 
   wave(world:World, rect:Rect, diff:Rect){
-    
+    //ここで移動方向を検出する
+    if(diff.x > 0){
+
+    }
+
+
   }
 
   move(world:World, rect:Rect):void {
     var diff:Rect = new Rect();
     diff.x = rect.x;
     diff.y = rect.y;
-    diff.width = rect.width;
-    diff.height = rect.height;
+    diff.w = rect.w;
+    diff.h = rect.h;
     this.animation.move(world, rect);
     diff.x -= rect.x;
     diff.y -= rect.y;
-    diff.width -= rect.width;
-    diff.height -= rect.height;
+    diff.w -= rect.w;
+    diff.h -= rect.h;
     this.wave(world, rect, diff);
   }
 }
-
 
 //data
 class World{
